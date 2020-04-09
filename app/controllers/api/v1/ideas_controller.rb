@@ -20,6 +20,15 @@ module Api
         render json: @idea
       end
 
+      def destroy
+        @idea = Idea.find(params[:id])
+        if @idea.destroy
+          head :no_content, status: :ok
+        else
+          render json: @idea.errors, status: :unprocessable_entity
+        end
+      end
+
       private
 
       def idea_params
